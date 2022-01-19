@@ -1,0 +1,5 @@
+user can choose class roster view by trainer name dropdown
+the chart will display student names and an attendance dropdown box for each name
+user can submit the form
+when the form is submitted, the data graph at the bottom of the page update for that trainer's class
+the data line graph will show rate of total_absences over every 5 days (ideally every month)
