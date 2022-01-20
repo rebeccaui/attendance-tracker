@@ -1,1 +1,1 @@
-# attendance-tracker
+# Pokemon Attendance Tracker
