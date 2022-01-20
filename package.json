@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/rebeccaui/attendance-tracker#readme",
   "dependencies": {
+    "fusioncharts": "^3.18.0",
+    "jquery-fusioncharts": "^1.2.1",
     "mysql": "^2.18.1",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1"
   }
 }
