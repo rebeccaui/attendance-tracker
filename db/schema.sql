@@ -7,8 +7,6 @@ CREATE TABLE students (
     student_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     student_name VARCHAR(50) NOT NULL,
     student_gender ENUM('M', 'F', 'O'),
-    student_region VARCHAR(20),
-    student_trainer VARCHAR(50),
     PRIMARY KEY(student_id)
 );
 
@@ -35,3 +33,20 @@ REFERENCES students(student_id) ON UPDATE NO ACTION ON DELETE CASCADE,
     FOREIGN KEY(class_id)
 REFERENCES roster(class_id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
+
+
+-------------------
+-- QUERIES
+-------------------
+
+-- Display trainer_name list in roster dropdown selection
+SELECT * FROM roster.trainer_name;
+
+-- View a class roster once a trainer_name is selected
+SELECT * FROM students WHERE student_trainer = user.target
+    ORDER BY student_name ASC;
+
+-- Once attendance form is submitted, evaluate sum of total absences for the class
+SELECT COUNT FROM attendance.present WHERE present = 'A'
+UNION
+SELECT * FROM roster.total_absences ORDER BY DATE DESC;
