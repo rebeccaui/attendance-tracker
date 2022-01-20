@@ -7,6 +7,7 @@ CREATE TABLE students (
     student_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     student_name VARCHAR(50) NOT NULL,
     student_gender ENUM('M', 'F', 'O'),
+    student_absences TINYINT UNSIGNED, 
     PRIMARY KEY(student_id)
 );
 
@@ -14,7 +15,7 @@ CREATE TABLE roster (
     class_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     trainer_name VARCHAR(50) UNIQUE,
     trainer_type VARCHAR(20),
-    total_absences TINYINT UNSIGNED,
+    total_absences TINYINT UNSIGNED, -- SUM of all student_absences in a single class
     PRIMARY KEY(class_id)
 );
 
@@ -40,13 +41,19 @@ REFERENCES roster(class_id) ON UPDATE NO ACTION ON DELETE NO ACTION
 -------------------
 
 -- Display trainer_name list in roster dropdown selection
-SELECT * FROM roster.trainer_name;
+SELECT trainer_name FROM roster;
 
 -- View a class roster once a trainer_name is selected
-SELECT * FROM students WHERE student_trainer = user.target
+SELECT student_name FROM students WHERE student_trainer = user.target
     ORDER BY student_name ASC;
 
+-- Find students with absences
+SELECT student_name FROM students WHERE student_absences > 0;
+
+-- Find student with the most absences
+SELECT MAX(student_absences) FROM students GROUP BY student_name; 
+
 -- Once attendance form is submitted, evaluate sum of total absences for the class
-SELECT COUNT FROM attendance.present WHERE present = 'A'
+SELECT COUNT FROM attendance WHERE present = 'A'
 UNION
 SELECT * FROM roster.total_absences ORDER BY DATE DESC;
